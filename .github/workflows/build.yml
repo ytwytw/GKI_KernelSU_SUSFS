@@ -556,6 +556,8 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: ${{ steps.extract.outputs.file_name }}-BuildInfo
-          path: /tmp/build-summary-${{ steps.build-summary.outputs.summary_base }}.md
+          path: |
+            /tmp/build-summary-${{ steps.build-summary.outputs.summary_base }}.md
+            /tmp/kernel-qualification/
           if-no-files-found: warn
           compression-level: 9

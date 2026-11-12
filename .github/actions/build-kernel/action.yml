@@ -180,6 +180,17 @@ runs:
         fi
         echo "Page size verified: ${PAGE_SIZE}"
 
+    - name: Save actual build qualification outputs
+      shell: bash
+      working-directory: ${{ github.workspace }}/kernel
+      run: |
+        set -euo pipefail
+        mkdir -p /tmp/kernel-qualification
+        cp -L bazel-bin/common/kernel_aarch64_config/out_dir/.config /tmp/kernel-qualification/config.txt
+        cp -L bazel-bin/common/kernel_aarch64/Module.symvers /tmp/kernel-qualification/Module.symvers
+        cp -L bazel-bin/common/kernel_aarch64/System.map /tmp/kernel-qualification/System.map
+        repo manifest -r -o /tmp/kernel-qualification/manifest.xml
+
     - name: 'Gather Build Artifacts'
       shell: bash
       working-directory: ${{ github.workspace }}/kernel
